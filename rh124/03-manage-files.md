@@ -119,6 +119,35 @@ rmdir ProjectZ     # remove an EMPTY directory only
 
 ---
 
+## 4. Links (short)
+
+- **Hard link**: `ln file link`. Another name for the same data (same inode, check with `ls -li`). Only files, only the same file system. Data stays until the last link is deleted.
+- **Symlink**: `ln -s target link`. A pointer to a name. Works for directories and across file systems. If the target is deleted, the link is dangling. In `ls -l` it shows `l` and `->`.
+- `cd -P link` goes to the real directory.
+
+---
+
+## 5. Shell expansions (short)
+
+```bash
+ls *.txt                    # * = any string
+ls song?.mp3                # ? = one character
+ls [ac]*                    # starts with a or c
+touch file{1..3}.txt        # brace expansion: file1.txt file2.txt file3.txt
+mkdir -p project/{src,docs} # several directories at once
+cp config.yml{,.bak}        # quick backup
+NAME=anna                   # no spaces around =
+echo $NAME                  # variable
+echo Today is $(date +%A)   # command substitution (not backticks)
+echo "Home: $HOME"          # double quotes: variables still work
+echo 'Home: $HOME'          # single quotes: literal text
+echo \$HOME                 # \ protects one character
+```
+
+- If a pattern matches nothing, it is passed to the command as plain text.
+
+---
+
 ## Quick cheat sheet
 
 | Task                      | Command                      |
