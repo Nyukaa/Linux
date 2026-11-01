@@ -47,3 +47,35 @@ ip -br addr show      # short list
 - A service on `127.0.0.1` is not reachable from outside. `0.0.0.0` = all addresses.
   ip -br addr show # мои адреса кратко
   ip route # таблица маршрутов
+
+## 2. Validate the network
+
+```bash
+ip link show             # interfaces and MAC addresses
+ip addr show ens3        # IP addresses (inet = IPv4, inet6 = IPv6)
+ip -br addr              # short list
+ip -s link show ens3     # RX/TX statistics (errors, dropped)
+ip route                 # routing table (IPv4)
+ip -6 route              # routing table (IPv6)
+ping -c3 192.0.2.254     # test connection, 3 packets
+ping6 ff02::1%ens3       # IPv6 link-local needs %interface
+tracepath host           # path through routers
+ss -tlnp                 # listening TCP sockets with process names
+```
+
+| `ss` option | Meaning            |
+| ----------- | ------------------ |
+| `-t` / `-u` | TCP / UDP          |
+| `-l`        | listening only     |
+| `-a`        | all sockets        |
+| `-n`        | numbers, not names |
+| `-p`        | show the process   |
+
+- `ss` replaces `netstat`.
+- `*:22` or `[::]:22` = listens on all addresses. `127.0.0.1:25` = only local.
+- `default via ...` in `ip route` is the gateway.
+- High RX/TX errors or dropped packets = network problem.
+  ip -br addr # мои адреса кратко
+  ping -c3 example.com # есть ли связь
+  ss -tlnp # кто слушает какой порт и какой процесс, самая полезная из них
+  ip route # куда идёт трафик
