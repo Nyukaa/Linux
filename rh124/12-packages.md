@@ -120,3 +120,40 @@ sudo dnf search nginx # найти пакет
 sudo dnf install nginx # установить
 sudo dnf provides '\*/bin/curl' # какой пакет даёт команду (шаблон в кавычках)
 sudo dnf history # что и когда ставили
+
+## 4. DNF repositories
+
+```bash
+dnf repolist all                                  # all repositories and status
+sudo dnf config-manager --enable REPO_ID          # enable (permanent)
+sudo dnf config-manager --disable REPO_ID         # disable (permanent)
+sudo dnf config-manager --add-repo="https://example.com/repo/"   # add a repo
+
+sudo rpm --import https://example.com/RPM-GPG-KEY   # import GPG key FIRST
+sudo dnf install https://example.com/epel-release-latest-9.noarch.rpm
+
+sudo dnf install PACKAGE --enablerepo=PATTERN     # enable for ONE command only
+sudo dnf install PACKAGE --disablerepo=PATTERN
+```
+
+- Repository files: `/etc/yum.repos.d/*.repo` (recommended) or `/etc/dnf/dnf.conf`. `.repo` files win.
+- A `.repo` file:
+
+```
+  [myrepo]
+  name=My repository
+  baseurl=https://example.com/repo/
+  enabled=1
+  gpgcheck=1
+  gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-example
+```
+
+- `enabled=0` = defined but not used by default.
+- Import the GPG key before installing signed packages. `--nogpgcheck` is dangerous (fake or bad packages).
+- With SCA, a system can use any repository from the organization's subscriptions.
+
+---
+
+dnf repolist # какие репозитории подключены
+sudo dnf install epel-release # EPEL на RHEL-подобных системах (не из курса, так делают на Rocky или Alma)
+sudo dnf install nginx --enablerepo=epel # включить репозиторий на один раз
