@@ -26,7 +26,23 @@ Course objectives:
 - Log in to `workstation`, then use `ssh` to reach the other machines.
 - `DELETE` and `Reset` erase the disks. Keep auto-stop (max 11 hours) and auto-destroy (max 14 days) timers set while you work.
 
+## Trial subscription (optional)
+
+Not needed for the course: the software is in the lab. Only for your own study.
+
+- Red Hat Hybrid Cloud Console (`console.redhat.com`) = SaaS with services for Red Hat products.
+- For Ansible Automation Platform:
+  - automation hub: supported Ansible Content Collections from Red Hat and partners
+  - Insights for Ansible Automation Platform: reports about automation usage (data from automation controller)
+- Log in with a Customer Portal account. Ansible services need an Ansible Automation Platform subscription.
+- Do not test with a corporate account: all users in the organization share the configuration. Create a personal account (`access.redhat.com` or `developers.redhat.com`).
+- Request the trial at `console.redhat.com/ansible`. It can take up to 2 hours to become active.
+
 ### Dev use
+
+```
+personal account + trial   # safe place to try Ansible Collections without touching work settings
+```
 
 ```
 playbook in git -> same setup on every server   # like a Dockerfile, but for servers
